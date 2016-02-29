@@ -1,11 +1,19 @@
+/*
+21 Feb, 2016
+Copyright (C) 2016 Alberto Naranjo
+All rights reserved.
+*/
+
 #include "Arduboy.h"
 #include "Sprite.h"
-
+#include "physics.h"
 
 
 Sprite::Sprite(Arduboy &a,int16_t x, int16_t y, const uint8_t *bitmap,const uint8_t *bitmap_mask){
    //Serial.begin(9600);
-    
+
+  
+   
    this->x=x;
    this->y=y;
    init_x=x;
@@ -13,24 +21,25 @@ Sprite::Sprite(Arduboy &a,int16_t x, int16_t y, const uint8_t *bitmap,const uint
    
    arduboy = &a;
 
-   frame = 0;
-   visible=true;
-   active=true;
-   collisionable=true;
-   color=WHITE; 
+   //frame = 0;
+   
+   //color=WHITE; 
 
-   fric_x=0;
-   fric_y=0;
+   //fric_x=0;
+   //fric_y=0;
    
    w = pgm_read_byte(bitmap);
    h = pgm_read_byte(++bitmap);
-   
+
    bitmap++;
    
    this->bitmap=bitmap;
 
    offset_x=w/2;
    offset_y=h/2;
+
+   rect={x,y,w,h};
+   
 
    this->bitmap_mask=bitmap_mask;  //fix to mirror bitmap operations
 }
@@ -43,12 +52,11 @@ void Sprite::applyPhysics(){
 
 void Sprite::update(){
   
- this->draw(); 
-
   x+=inc_x;
-  y+=inc_y;  
+  y+=inc_y;
 
- 
+  this->draw();
+  
   
 }
 
@@ -65,11 +73,12 @@ void Sprite::loopAnimationStep(uint8_t ini,uint8_t end){
 }
 
 void Sprite::move(int inc_x,int inc_y){
-
-  //this->draw();
   
+  //this->inc_x=inc_x;
+  //this->inc_y=inc_y;
   x+=inc_x;
   y+=inc_y;
+  update();
 
 }
 
@@ -82,6 +91,10 @@ void Sprite::draw(){
    Serial.println(h);
   }
  */
+
+  rect.x=x;
+  rect.y=y;
+
   
   if (bitmap_mask!=NULL){
     uint8_t color_mask;

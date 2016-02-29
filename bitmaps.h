@@ -1,3 +1,9 @@
+/*
+21 Feb, 2016
+Copyright (C) 2016 Alberto Naranjo
+All rights reserved.
+*/
+
 //Sprites http://www.andrewlowndes.co.uk/blog/graphics/arduboy-image-converter
 //http://community.arduboy.com/t/arduboy-image-converter/111/4
 
@@ -74,6 +80,11 @@ PROGMEM const byte BITMAP_splash [] = {
   0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
 };
 
+
+PROGMEM const byte BITMAP_heart [] = {
+  7,7,
+  0x0E, 0x1F, 0x3F, 0x7E, 0x3F, 0x1F, 0x0E
+};
 
 PROGMEM const byte BITMAP_marioKart [] = {
   17,19,
