@@ -206,7 +206,7 @@ void loop() {
     sprintf(text, "%u", counter);
     arduboy.print(text);
     arduboy.display();
-    
+    arduboy.tunes.tone(987, 160);
     delay(1000);
     counter--;
     if (counter==0){
@@ -214,6 +214,7 @@ void loop() {
       arduboy.setTextSize(2);
       arduboy.print("GO!");
       arduboy.display();
+      arduboy.tunes.tone(1318, 400);
       delay(1000);
       enemy.inc_y=2;
       GAME_STATE=2;
@@ -345,6 +346,6 @@ void enemy_controller(){
 void resetEnemy(){
   enemy.y=-15;
   enemy.init_x=random(roadline_pos+10, MAX_X-roadline_pos-10);
-  enemy.inc_y=random(3, 5);
+  enemy.inc_y=random(3, 4);
 }
 
