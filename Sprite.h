@@ -14,6 +14,7 @@ class Sprite{
   public:
     Sprite(Arduboy &a,int16_t x, int16_t y, const uint8_t *bitmap,const uint8_t *bitmap_mask);
     void draw();
+    void switchVisibility();
     void update();
     void setX(int x);
     void setY(int y);
@@ -21,6 +22,7 @@ class Sprite{
     void move(int inc_x,int inc_y);
     void setMask(const uint8_t *bitmap); //?? //To delete
     void loopAnimationStep(uint8_t ini,uint8_t end);
+
     
     const uint8_t *bitmap;
     const uint8_t *bitmap_mask;

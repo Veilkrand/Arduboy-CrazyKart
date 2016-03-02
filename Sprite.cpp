@@ -50,8 +50,17 @@ void Sprite::applyPhysics(){
   }
 }
 
+void Sprite::switchVisibility(){
+  if (visible){
+    visible=false;
+  }else{
+    visible=true;
+  }
+}
+
 void Sprite::update(){
-  
+
+  //if (!active) return;
   x+=inc_x;
   y+=inc_y;
 
@@ -92,7 +101,9 @@ void Sprite::draw(){
   }
  */
 
-  rect.x=x;
+  if (!visible) return;
+  
+  rect.x=x; //probably not necessary to calculate everytime
   rect.y=y;
 
   

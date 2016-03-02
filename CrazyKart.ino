@@ -53,7 +53,7 @@ Sprite splash(arduboy,MID_X,MID_Y,BITMAP_splash,NULL);
 
 Sprite *hearts[3];
 
-Sprite heart(arduboy,32, -1, BITMAP_koopa, NULL);
+Sprite alert(arduboy,32, 15, BITMAP_alert, NULL);
 
 Sprite stone(arduboy,-1, 0, BITMAP_stone, NULL);
 Sprite toad(arduboy,0, 0, BITMAP_toad, NULL);
@@ -163,6 +163,8 @@ void loop() {
       parallax_offset_x=0;
       speed=0;
 
+      alert.active=false;
+
       player.y=player_y;
       player.x=MID_X;
       
@@ -174,7 +176,7 @@ void loop() {
       stone.y=random(1,MAX_Y);
       
       stone.x=parallax_offset_x+roadline_pos-20;
-      toad.x=parallax_offset_x+MAX_X-roadline_pos+20;
+      toad.x=parallax_offset_x+MAX_X-roadline_pos+15;
       
     }
 
@@ -253,6 +255,8 @@ void loop() {
     stone_controller();
     
     enemy_controller();
+
+    alert_controller();
     
   }
 
@@ -302,7 +306,7 @@ void toad_controller(){
 
    
     
-   toad.x=parallax_offset_x+MAX_X-roadline_pos+20;
+   toad.x=parallax_offset_x+MAX_X-roadline_pos+15;
    if (arduboy.everyXFrames(9)) {
     toad.loopAnimationStep(0,1);  
    }
@@ -327,25 +331,45 @@ void stone_controller(){
 }
 
 void enemy_controller(){
+
+    const int ini_y=-30;
+    
+    enemy.x=parallax_offset_x+enemy.init_x;
+    enemy.y+=speed-enemy.inc_y;
   
-  enemy.x=parallax_offset_x+enemy.init_x;
-  
-  //enemy.y+=speed-enemy.inc_y;
-  enemy.y+=speed-enemy.inc_y;
+  if (enemy.y<ini_y){
+    enemy.y=ini_y;
+  }
+
+  if (enemy.y>-5){
+   alert.active=false;
+  }
   //enemy.inc_y+=speed;
   
   if (enemy.y>MAX_Y+10){
-    resetEnemy();
+    enemy.y=ini_y;
+    enemy.init_x=random(roadline_pos+10, MAX_X-roadline_pos-10);
+    enemy.inc_y=random(3, 5);
+    alert.active=true;
   }
 
-  if (enemy.y<-20){
-    resetEnemy();
-  }
 }
 
-void resetEnemy(){
-  enemy.y=-15;
-  enemy.init_x=random(roadline_pos+10, MAX_X-roadline_pos-10);
-  enemy.inc_y=random(3, 4);
+void alert_controller(){
+
+  alert.x=parallax_offset_x+enemy.init_x;
+  
+  if (!alert.active) return;
+ 
+  alert.draw();
+ 
+  if (arduboy.everyXFrames(20)){
+    alert.switchVisibility();
+  }
+
+  
+  
+  
 }
+
 
