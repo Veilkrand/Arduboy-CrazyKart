@@ -1,8 +1,9 @@
 Arduboy game: CrazyKart
 ====
+*This work is licensed under a Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License. Alberto S. Naranjo Galet 2016*
 
-Basic game to test capabilities and frameworks
+Gameplay video: https://youtu.be/ZatDIv40GMk
 
-Gameplay video: https://github.com/Veilkrand/Arduboy-CrazyKart/blob/master/resources/KrazyKart.mp4
+Small game built for Arduboy to test capabilities and frameworks.
 
-Alberto Naranjo 2016
+
